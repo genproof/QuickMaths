@@ -1,0 +1,17 @@
+# Template: @USER@, @GROUP@, @OWN@ (the feeder state dir, LEH_OWN_ROOT) and @CAMPAIGNS@ (the queue
+# roots, LEH_CAMPAIGNS_ROOT) are filled in by local/fleet.py deploy, or by hand (docs/CONFIGURATION.md).
+[Unit]
+Description=fleet runner queue %i (Claude Opus 5.5 xhigh, own subscription account)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=@USER@
+Group=@GROUP@
+# Optional LEH_*/LEANEVAL_WORKBENCH layout overrides, one NAME=value per line (no secrets).
+EnvironmentFile=-@OWN@/layout.env
+ExecStart=@OWN@/run_controller.sh @CAMPAIGNS@/fleet-1-%i
+# Only the controller is stopped; a running model supervisor keeps going and is adopted on restart.
+KillMode=process
+Restart=no

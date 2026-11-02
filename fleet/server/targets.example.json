@@ -1,0 +1,7 @@
+{
+ "source": "example: copy to <own root>/targets.json on a runner host. Order is the queue order; optional per-target keys: max_rounds, disabled, title, seed_dir (an absolute directory with Submission.lean), avoid_tactics, parallel_of, and the size hints ref_min_modules / n_solvers (docs/CONFIGURATION.md).",
+ "targets": [
+  {"problem_id": "annals_unit_conjecture", "max_rounds": 3},
+  {"problem_id": "weak_goldbach"}
+ ]
+}

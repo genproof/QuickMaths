@@ -1,0 +1,12 @@
+# Template: @USER@, @GROUP@ and @OWN@ are filled in by local/fleet.py deploy, or by hand.
+[Unit]
+Description=fleet feeder tick (assign targets, keep runners alive, package passes)
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=@USER@
+Group=@GROUP@
+EnvironmentFile=-@OWN@/layout.env
+ExecStart=/usr/bin/python3 -B @OWN@/feeder.py --once
+TimeoutStartSec=1800

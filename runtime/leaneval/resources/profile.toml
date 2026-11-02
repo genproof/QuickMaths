@@ -1,0 +1,26 @@
+schema_version = 1
+project = "quickmaths"
+stage = "release"
+
+[benchmark]
+repository = "https://github.com/leanprover/lean-eval"
+commit = "208b6b22d396f28771dba56414b19f47cae5f2a7"
+group = "formalization-evaluation"
+scope = "v1"
+toolchain = "leanprover/lean4:v4.35.0-rc3"
+verification = "official-pristine-workspace-lake-test (toolchain lake comparator in bubblewrap)"
+
+[source_policy]
+proof_repo_visibility = "private"
+publication = "withheld"
+reference_mode = "declared_reuse"
+vendored_code_licenses = ["Apache-2.0", "MIT"]
+record_exact_solution_exposure = true
+
+[runtime]
+implemented = true
+models_bound = true
+model = "claude-opus-5-5"
+reasoning_effort = "xhigh"
+budget_required = true
+default_same_task_racing = false

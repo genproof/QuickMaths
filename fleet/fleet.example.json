@@ -1,0 +1,121 @@
+{
+ "note": "Example fleet layout. Copy to fleet.json (gitignored) or point LEH_FLEET_CONFIG at your copy. Hosts are ssh names (one user, same home on every host); runner names must look like wave<digits>. accounts maps an account label to a secret reference: runners need file: references to a token file that you place on each host yourself (mode 600); deploy only checks it.",
+ "runtime": "set by local/fleet.py deploy (lrh-<hash>)",
+ "accounts": {
+  "account-a": "file:~/.config/leh/accounts/account-a.token",
+  "account-b": "file:~/.config/leh/accounts/account-b.token",
+  "account-c": "file:~/.config/leh/accounts/account-c.token",
+  "account-d": "file:~/.config/leh/accounts/account-d.token",
+  "account-e": "file:~/.config/leh/accounts/account-e.token"
+ },
+ "hosts": {
+  "host-1": {
+   "runners": {
+    "wave101": "account-a",
+    "wave102": "account-a"
+   },
+   "note": "A slower host: fewer active runners, more free memory required.",
+   "max_program_runners": 2,
+   "max_active_runners": 2,
+   "min_mem_available_gb": 16
+  },
+  "host-2": {
+   "runners": {
+    "wave201": "account-b",
+    "wave202": "account-b",
+    "wave203": "account-c"
+   },
+   "max_program_runners": 4
+  },
+  "host-3": {
+   "runners": {
+    "wave301": "account-c",
+    "wave302": "account-d"
+   },
+   "max_program_runners": 4
+  },
+  "host-4": {
+   "runners": {
+    "wave401": "account-d",
+    "wave402": "account-e"
+   },
+   "max_program_runners": 4
+  },
+  "host-5": {
+   "runners": {
+    "wave501": "account-e"
+   },
+   "max_program_runners": 2
+  }
+ },
+ "defaults": {
+  "wall_seconds": 14400,
+  "token_limit": 1000000000,
+  "verification_seconds": 21600,
+  "worker_timeout_seconds": 1800,
+  "verify_policy": "if_ready",
+  "max_rounds": 10
+ },
+ "retry_max_ref_modules": 0,
+ "max_program_runners": 2,
+ "min_free_gb": 25,
+ "max_retries": 2,
+ "program_min_ref_modules": 250,
+ "verify_lineages": true,
+ "verify_backfill": false,
+ "verify_round_seconds": 900,
+ "max_verifies": 2,
+ "churn_rounds": 3,
+ "estimate_stall_ratio": 0.75,
+ "estimate_stall_min_lines": 1000,
+ "quota_handoff": true,
+ "quota_handoff_after_s": 3600,
+ "adopt_paused_claims": false,
+ "stop_siblings_on_pass": true,
+ "max_active_runners": 0,
+ "min_mem_available_gb": 0,
+ "max_memory_pressure_avg60": null,
+ "leaderboard_model": null,
+ "contributors": [],
+ "policy_note": "Up to max_rounds rounds while the frontier moves; one ROUTE_REVIEW lineage before a stalled lineage ends; retries from the best finished files with no size cap (retry_max_ref_modules 0), at most max_retries; problems whose size hint ref_min_modules is at least program_min_ref_modules and that stall after a route review become lane programs.",
+ "policy_note_20261014": "docs/FEEDER-POLICY.md: verification_seconds 21600 (the evaluation CI allows 6 h); a complete but unverified round gets a 1-round VERIFY lineage (verify_lineages; then CI_FIT on a timeout, REPAIR on a rejection; at most max_verifies per problem); residual progress needs a proved row or a lower estimate; stall when the estimate falls by less than 25% (estimate_stall_ratio) twice, else after churn_rounds rounds without a new sorry minimum; quota_handoff moves paused lineages to an idle runner with quota as RESUME; max_active_runners, min_mem_available_gb and max_memory_pressure_avg60 close assignment on a loaded host (0 or null = off). leaderboard_model: the model id under which the public leaderboard credits your submissions (its problems are skipped), null = no filter. contributors: tags written into packages, e.g. [\"@your-handle\"].",
+ "publish": {
+  "note": "Operator machine only (local/publish.py, local/verify_current.py): the private repository that receives one claude/<problem>-private branch per solved problem, the organizers' intake repository and the account whose results file there lists credited problems (null = no skip).",
+  "repo": "your-org/your-private-submissions",
+  "intake": "leanprover/lean-eval-submissions",
+  "results_account": null
+ },
+ "coordinator": {
+  "note": "local/coordinator.py (operator machine), docs/COORDINATOR-POLICY.md. hosts: relative single-lineage throughput and whether heavy (hard/extreme tier) single lineages may run there.",
+  "enabled": true,
+  "parallel": false,
+  "parallel_min_closeness": 0.34,
+  "max_live_lineages": 2,
+  "parallel_cooldown_s": 14400,
+  "handoff_wait_s": 900,
+  "max_starts_per_tick": 4,
+  "heavy_tiers": [
+   "hard",
+   "extreme"
+  ],
+  "hosts": {
+   "host-1": {
+    "speed": 0.33,
+    "heavy_single": false
+   },
+   "host-2": {
+    "speed": 1.0
+   },
+   "host-3": {
+    "speed": 1.0
+   },
+   "host-4": {
+    "speed": 1.0
+   },
+   "host-5": {
+    "speed": 1.0
+   }
+  },
+  "exclude_problems": []
+ }
+}

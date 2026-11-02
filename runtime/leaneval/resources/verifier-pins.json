@@ -1,0 +1,17 @@
+{
+  "benchmark": {
+    "url": "https://github.com/leanprover/lean-eval.git",
+    "rev": "208b6b22d396f28771dba56414b19f47cae5f2a7"
+  },
+  "evaluation": "lake-comparator",
+  "bwrap": {
+    "version": "0.12.0",
+    "installer": {
+      "repository": "leanprover/lean-eval-submissions",
+      "commit": "4704027e5e221bbe8b0f8356dec1ce5c1965fd6e",
+      "path": "scripts/install_bwrap.sh",
+      "sha256": "c290df6cebdf1cb26edb69ed4164d9551062bfeb65243b93d1d1d3b77eac0a35"
+    }
+  },
+  "landrun": "5ed4a3db3a4ad930d577215c6b9abaa19df7f99f"
+}

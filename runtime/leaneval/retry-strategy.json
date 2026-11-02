@@ -1,0 +1,10 @@
+{
+  "strategy_id": "official-lake-test-v1",
+  "equivalent_verifier_sha256": [
+    "646de08c6917330d49d6ecd0adb182ee24a93465f783e7237cfe9e0e3369bdb6",
+    "7467ea5da44e72d281a4c1ac2ec38d43ca06507b5893384a7e7130c7e3f50caf",
+    "690bb5b945e379c03d468407079e27a072d48ad27ee6faa52d19fabae4345e0a",
+    "6f952092178522d7bc41a310eec9a914227c1210a7e35889535df6d754c1ae2e"
+  ],
+  "review_basis": "Legacy to v16 adds lifecycle telemetry, archives and cumulative budget enforcement; v16 to v30 adds process start identity. Official prepare, sandbox, lake test and acceptance checks are unchanged. v32 adds only the pre-submission retry policy."
+}

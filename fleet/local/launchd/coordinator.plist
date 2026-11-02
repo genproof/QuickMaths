@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Template (macOS LaunchAgent), not installed. Fill in @PYTHON@ (a python3.12), @REPO@ (this
+     repository's root) and @STATE@ (LEH_STATE_DIR, default ~/.local/state/leh-fleet), e.g.
+       sed -e "s|@PYTHON@|$(command -v python3.12)|" -e "s|@REPO@|$PWD|" \
+           -e "s|@STATE@|$HOME/.local/state/leh-fleet|" fleet/local/launchd/NAME.plist
+     Enable only after every host runs the inbox feeder and the dry run (coordinator.py without
+     flags) has been reviewed (docs/COORDINATOR-POLICY.md, rollout). One tick: gather, plan, seeds, directives. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>local.leh.coordinator</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>@PYTHON@</string>
+    <string>-I</string>
+    <string>@REPO@/fleet/local/coordinator.py</string>
+    <string>--apply</string>
+    <string>--once</string>
+  </array>
+  <key>StartInterval</key>
+  <integer>300</integer>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>@STATE@/coordinator.out</string>
+  <key>StandardErrorPath</key>
+  <string>@STATE@/coordinator.err</string>
+</dict>
+</plist>

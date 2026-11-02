@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Template (macOS LaunchAgent), not installed. Fill in @PYTHON@ (a python3.12), @REPO@ (this
+     repository's root) and @STATE@ (LEH_STATE_DIR, default ~/.local/state/leh-fleet), e.g.
+       sed -e "s|@PYTHON@|$(command -v python3.12)|" -e "s|@REPO@|$PWD|" \
+           -e "s|@STATE@|$HOME/.local/state/leh-fleet|" fleet/local/launchd/NAME.plist
+     Enable only after a reviewed dry run and one item taken to done by hand (one applied tick at a time).
+     One tick: discover, poll/stage/push/clean up the active item, start the next one. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>local.leh.vcur</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>@PYTHON@</string>
+    <string>-I</string>
+    <string>@REPO@/fleet/local/verify_current.py</string>
+    <string>--apply</string>
+    <string>--once</string>
+  </array>
+  <key>StartInterval</key>
+  <integer>300</integer>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>@STATE@/vcur.out</string>
+  <key>StandardErrorPath</key>
+  <string>@STATE@/vcur.err</string>
+</dict>
+</plist>

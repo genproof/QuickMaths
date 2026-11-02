@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+# Runtime state, logs and evolve datasets never live in the repository.
+/state/
+/runs/
+/data/
+*.jsonl
+*.sqlite3
+.env
+.DS_Store
+# Operator configuration (templates: *.example.json).
+/fleet/fleet.json
+/fleet/server/targets.json
+/fleet/local/vcur/config.json
+# Per-problem briefs are operator notes; only the generic briefs are tracked.
+/fleet/server/briefs/*.md
+!/fleet/server/briefs/COMMON.md
+!/fleet/server/briefs/TACTICS.md
